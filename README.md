@@ -1,3 +1,3 @@
-[![wercker status](https://app.wercker.com/status/895cc1a1cd47158f7e8be0b6e9a2bb79/m "wercker status")](https://app.wercker.com/project/bykey/895cc1a1cd47158f7e8be0b6e9a2bb79)
+[![wercker status](https://app.wercker.com/status/b94695552b0dabbc34d1137aa525fba3/s/master "wercker status")](https://app.wercker.com/project/byKey/b94695552b0dabbc34d1137aa525fba3)
 # hello
 An opinionated hello world
