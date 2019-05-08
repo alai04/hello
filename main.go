@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/codegangsta/negroni"
 )
@@ -25,4 +26,5 @@ func main() {
 
 func hello(res http.ResponseWriter, req *http.Request) {
 	fmt.Fprintln(res, "Hello from Go!")
+	fmt.Fprintf(res, "Today is %v.\n", time.Now().Weekday())
 }

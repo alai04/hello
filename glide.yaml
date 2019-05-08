@@ -1,3 +1,0 @@
-package: github.com/alai04/hello
-import:
-- package: github.com/codegangsta/negroni
