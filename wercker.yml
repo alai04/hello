@@ -61,19 +61,15 @@ build:
 deploy:
  steps:
    - internal/docker-push:
-       username: $DOCKER_USERNAME
-       password: $DOCKER_PASSWORD
-       cmd: /pipeline/source/hello
-       port: "8080"
-       tag: latest
-       repository: alai04/book-hello
-       registry: https://registry.hub.docker.com
+      username: $DOCKER_USERNAME
+      password: $DOCKER_PASSWORD
+      cmd: /pipeline/source/hello
+      port: "8080"
+      tag: latest
+      repository: alai04/book-hello
+      registry: https://registry.hub.docker.com
 
-   - cng/cf-deploy:
-       api: $API
-       user: $USER
-       password: $PASSWORD
-       org: $ORG
-       space: $SPACE
-       appname: wercker-step-hello
-       docker_image: alai04/book-hello
+   - heroku/deploy:
+      key: $HEROKU_KEY
+      user: $HEROKU_USER
+      app-name: $HEROKU_APP_NAME
