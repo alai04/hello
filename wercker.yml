@@ -1,4 +1,7 @@
-box: golang
+box: 
+  id: golang
+  ports:
+    - "8080"
 
 dev:
   steps:
@@ -14,9 +17,8 @@ dev:
         code: |
           cd $WERCKER_SOURCE_DIR
           go version
-          go get -u github.com/Masterminds/glide
+          export GO111MODULE=on
           export PATH=$WERCKER_SOURCE_DIR/bin:$PATH
-          glide install
 
     - internal/watch:
         code: go run main.go
@@ -36,9 +38,10 @@ build:
         code: |
           cd $WERCKER_SOURCE_DIR
           go version
-          go get -u github.com/Masterminds/glide
+          export GO111MODULE=on
           export PATH=$WERCKER_SOURCE_DIR/bin:$PATH
-          glide install
+          go mod tidy
+          go mod vendor
 
     # Build the project
     - script:
@@ -50,15 +53,21 @@ build:
     - script:
         name: go test
         code: |
-          go test -v $(glide novendor)
+          go test -v
 
     - script:
         name: copy files to wercker output
         code: |
           cp -R ./ ${WERCKER_OUTPUT_DIR}
 
-
 deploy:
+  steps:
+    - heroku-deploy:
+        key: $HEROKU_KEY
+        user: $HEROKU_USER
+        app-name: $HEROKU_APP_NAME
+
+docker:
   steps:
     - internal/docker-push:
         username: $DOCKER_USERNAME
@@ -68,8 +77,3 @@ deploy:
         tag: latest
         repository: alai04/book-hello
         registry: https://registry.hub.docker.com
-
-    - heroku-deploy:
-        key: $HEROKU_KEY
-        user: $HEROKU_USER
-        app-name: $HEROKU_APP_NAME
